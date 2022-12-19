@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import {toast, Toaster} from 'react-hot-toast';
 import Searchbar from './Searchbar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
@@ -50,9 +51,9 @@ export class App extends Component {
 
       if (hits.length === 0) {
         this.setState({ status: Status.ERROR });
+        toast.error('No image found');
       }
     } catch (error) {
-      console.log(error);
       this.setState({ status: Status.ERROR });
     }
   };
@@ -103,8 +104,8 @@ export class App extends Component {
 
         {status === Status.PENDING && <Loader />}
 
-        {status === Status.ERROR && (alert('No image found')) }
-
+        {/* {status === Status.ERROR && (alert('No image found')) } */}
+        <Toaster position="top-center" />
         {status === Status.MODAL && (
           <Modal  ref={this.myRef} image={currentImage} onClose={this.handleModalClose} />
         )}
